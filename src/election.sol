@@ -42,11 +42,7 @@ contract Election {
 
     // 1. Create Candidates (Chairman only)
     function createCandidate(address _candidateAddress, string memory _name) public onlyChairman {
-        candidates.push(Candidate({
-            candidateAddr: _candidateAddress,
-            candidateName: _name,
-            totalCandidateVote: 0
-        }));
+        candidates.push(Candidate({candidateAddr: _candidateAddress, candidateName: _name, totalCandidateVote: 0}));
 
         // Assign an ID (using index + 1)
         uint256 candidateId = candidates.length;
@@ -77,14 +73,14 @@ contract Election {
         if (hasVoted[msg.sender]) {
             revert Election__VotedAlready();
         }
-        
+
         // Ensure valid candidate ID (Index is ID - 1)
         if (_candidateId == 0 || _candidateId > candidates.length) {
             revert Election__CandidateDeleted();
         }
 
         uint256 index = _candidateId - 1;
-        
+
         // Check if candidate address is active/valid
         if (candidates[index].candidateAddr == address(0)) {
             revert Election__CandidateDeleted();

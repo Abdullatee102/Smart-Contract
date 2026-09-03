@@ -88,26 +88,22 @@ contract Election {
     ////////// PARTY FUNCTIONS //////////
 
     // completed createParties() to create and assign a party ID
-    function createParties (string memory _partyName) public onlyChairman beforeElection returns (uint256 partyId) {
-        require(
-            bytes(_partyName).length > 0,
-            "Party name cannot be empty"
-        );
+    function createParties(string memory _partyName) public onlyChairman beforeElection returns (uint256 partyId) {
+        require(bytes(_partyName).length > 0, "Party name cannot be empty");
 
         partyId = parties.length + 1;
 
-        parties.push(
-            Party({
-                id: partyId,
-                name: _partyName
-            })
-        );
+        parties.push(Party({id: partyId, name: _partyName}));
     }
 
     ////////// CANDIDATE FUNCTIONS //////////
 
     // changed createCandidates() to support party assignment
-    function createCandidates (address _candidateAddress, string memory _name, uint256 _partyId) public onlyChairman beforeElection {
+    function createCandidates(address _candidateAddress, string memory _name, uint256 _partyId)
+        public
+        onlyChairman
+        beforeElection
+    {
         // added address validation
         if (_candidateAddress == address(0)) {
             revert Election__InvalidAddress();
@@ -138,7 +134,7 @@ contract Election {
     }
 
     // changed removeCandidates() to deactivate a candidate without shifting IDs
-    function removeCandidates (address _candidateAddress) public onlyChairman beforeElection {
+    function removeCandidates(address _candidateAddress) public onlyChairman beforeElection {
         uint256 candidateId = candidateIdToAddr[_candidateAddress];
 
         // added check to ensure the candidate exists
@@ -156,7 +152,7 @@ contract Election {
     ////////// VOTER FUNCTIONS //////////
 
     // changed voter registration to prevent duplicate voters
-    function registerVoters (uint16 age, address voter) public onlyChairman beforeElection returns (bool) {
+    function registerVoters(uint16 age, address voter) public onlyChairman beforeElection returns (bool) {
         // added address validation
         if (voter == address(0)) {
             revert Election__InvalidAddress();
@@ -197,10 +193,7 @@ contract Election {
         }
 
         // added voter registration check
-        if (
-            !isRegistered[msg.sender] ||
-            !is18Year[msg.sender]
-        ) {
+        if (!isRegistered[msg.sender] || !is18Year[msg.sender]) {
             revert Election__NotRegistered();
         }
 
@@ -210,14 +203,11 @@ contract Election {
         }
 
         // Candidate IDs are 1-based, so ID 1 maps to index 0
-        if (
-            id == 0 || id > candidates.length
-        ) {
+        if (id == 0 || id > candidates.length) {
             revert Election__CandidateNotFound();
         }
 
-        Candidate storage selectedCandidate =
-            candidates[id - 1];
+        Candidate storage selectedCandidate = candidates[id - 1];
 
         // added check to prevent voting for removed candidates
         if (!selectedCandidate.active) {
@@ -233,8 +223,7 @@ contract Election {
 
     // changed winner tracking to store the candidate ID, not voter ID
     function _updateWinner(uint256 id) private {
-        uint256 candidateVotes =
-            candidates[id - 1].totalCandidateVote;
+        uint256 candidateVotes = candidates[id - 1].totalCandidateVote;
 
         if (candidateVotes > highestVoteCount) {
             highestVoteCount = candidateVotes;
@@ -250,14 +239,16 @@ contract Election {
     }
 
     // added getter to return detailed information about the winner
-    function getWinnerDetails() public view returns (uint256 id, address candidateAddress, string memory candidateName, uint256 totalVotes, uint256 partyId) {
+    function getWinnerDetails()
+        public
+        view
+        returns (uint256 id, address candidateAddress, string memory candidateName, uint256 totalVotes, uint256 partyId)
+    {
         id = winnerCandidateId;
 
         // return empty values if no candidate has received a vote
         if (id == 0) {
-            return (
-                0, address(0), "", 0, 0
-            );
+            return (0, address(0), "", 0, 0);
         }
 
         Candidate memory currentWinner = candidates[id - 1];

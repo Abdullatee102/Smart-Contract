@@ -4,7 +4,6 @@ pragma solidity ^0.8.13;
 import {ERC20} from "../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
 
 contract MyToken is ERC20 {
-
     string public P_name;
     string public P_symbol;
 
@@ -42,17 +41,10 @@ contract MyToken is ERC20 {
     function transferFrom(address from, address to, uint256 amount) public virtual override returns (bool) {
         uint256 currentAllowance = allowance(from, _msgSender());
 
-        require(
-            currentAllowance >= amount,
-            "ERC20: transfer amount exceeds allowance"
-        );
+        require(currentAllowance >= amount, "ERC20: transfer amount exceeds allowance");
 
         unchecked {
-            _approve(
-                from,
-                _msgSender(),
-                currentAllowance - amount
-            );
+            _approve(from, _msgSender(), currentAllowance - amount);
         }
 
         _transfer(from, to, amount);

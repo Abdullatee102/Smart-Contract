@@ -2,10 +2,10 @@
 pragma solidity 0.8.33;
 
 import {Test} from "../lib/forge-std/src/Test.sol";
-import {ERC20OZ} from "../src/ERC20OZ.sol";
+import {MyToken} from "../src/erc20.sol";
 
 contract ERC20OZTest is Test {
-    ERC20OZ public token;
+    MyToken public token;
 
     address public deployer = address(this);
     address public alice = address(0x1);
@@ -15,7 +15,7 @@ contract ERC20OZTest is Test {
     string public constant SYMBOL = "TCH8";
 
     function setUp() public {
-        token = new ERC20OZ(NAME, SYMBOL);
+        token = new MyToken(NAME, SYMBOL);
     }
 
     function test_Name() public view {

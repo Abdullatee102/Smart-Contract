@@ -27,12 +27,12 @@ contract ERC20OZTest is Test {
     }
 
     function test_Mint() public {
-        token.mint(100, alice);
+        token.mint(alice, 100);
         assertEq(token.balanceOf(alice), 100);
     }
 
     function test_Transfer() public {
-        token.mint(100, deployer);
+        token.mint(deployer, 100);
         token.transfer(alice, 40);
 
         assertEq(token.balanceOf(deployer), 60);
@@ -40,7 +40,7 @@ contract ERC20OZTest is Test {
     }
 
     function test_TransferFrom() public {
-        token.mint(100, alice);
+        token.mint(alice, 100);
 
         vm.prank(alice);
         token.approve(deployer, 50);
@@ -52,7 +52,7 @@ contract ERC20OZTest is Test {
     }
 
     function test_BalanceOf() public {
-        token.mint(75, bob);
+        token.mint(bob, 75);
         assertEq(token.balanceOf(bob), 75);
     }
 }

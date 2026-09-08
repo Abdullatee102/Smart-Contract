@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.33;
 
 import {MyToken} from "../src/erc20.sol";
@@ -30,7 +30,7 @@ contract ERC20OZDeployment is Script {
 
         _MyToken.transfer(0x545DF19a98CD6E243AbBc7C41Ae5b940F0325223, 1e16);
 
-        console.log("Transferred:", 1e16);
+        console.log("Transferred:", uint256(1e16));
 
         vm.stopBroadcast();
     }

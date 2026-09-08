@@ -24,20 +24,14 @@ contract ERC20OZDeployment is Script {
         console.log("MyToken deployed at:", address(_MyToken));
 
         // mint total supply to the first address
-        _MyToken.mint(
-            0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65, totalSupply
-        );
+        _MyToken.mint(0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65, totalSupply);
 
         console.log("Total supply minted:", totalSupply);
 
-        _MyToken.transfer(
-            0x545DF19a98CD6E243AbBc7C41Ae5b940F0325223, 1e16
-        );
+        _MyToken.transfer(0x545DF19a98CD6E243AbBc7C41Ae5b940F0325223, 1e16);
 
         console.log("Transferred:", 1e16);
 
         vm.stopBroadcast();
     }
 }
-
-// forge script script/ERC20OZDeployment.s.sol --rpc-url http://127.0.0.1:8545 --broadcast --private-key <private key>

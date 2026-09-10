@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.33;
+pragma solidity ^0.8.33;
 
 import {MyToken} from "../src/erc20.sol";
 import {Script} from "../lib/forge-std/src/Script.sol";

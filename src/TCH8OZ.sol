@@ -23,11 +23,7 @@ contract TCH8OZ is ERC20 {
     }
 
     /// Initializes the token with a name, symbol, and sets the authorized protocol address
-    constructor(
-        string memory _name, 
-        string memory _symbol, 
-        address _protocol
-    ) ERC20(_name, _symbol) {
+    constructor(string memory _name, string memory _symbol, address _protocol) ERC20(_name, _symbol) {
         T_name = _name;
         T_symbol = _symbol;
         protocol = _protocol;

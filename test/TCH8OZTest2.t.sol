@@ -69,7 +69,7 @@ contract TCH80ZTest is Test {
     function testTransferFrom() public {
         vm.startPrank(protocol);
         newTCH08.mint(protocol, amountToMint);
-        
+
         // Protocol approves 'ade' to spend tokens on its behalf
         newTCH08.approve(ade, 5000);
         vm.stopPrank();
@@ -86,7 +86,7 @@ contract TCH80ZTest is Test {
         vm.startPrank(protocol);
         newTCH08.mint(protocol, amountToMint);
         uint256 balanceBefore = newTCH08.balanceOf(protocol);
-        
+
         // Protocol burns tokens from its own balance
         newTCH08.burn(1000);
         vm.stopPrank();

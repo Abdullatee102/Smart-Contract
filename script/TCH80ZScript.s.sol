@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.30;
 
 import {Script} from "../lib/forge-std/src/Script.sol";
@@ -10,7 +10,7 @@ import {console} from "../lib/forge-std/src/console.sol";
 contract TCH80ZScript is Script {
     string public _name = "TECHCRUSH8";
     string public _symbol = "TCH8";
-    
+
     // Designated protocol/owner address mapped to the newly created MetaMask wallet
     address private protocol = 0x50981497B3644f3a7fbebD1d20c6952cAc0d6c69;
     uint256 public AmountToMint = 1_000_000e18;
@@ -29,10 +29,10 @@ contract TCH80ZScript is Script {
 
         // Mint initial tokens directly to the MetaMask personal wallet address
         tokenTCH.mint(protocol, 100_000e18);
-        
+
         // Output contract address to terminal for verification and Etherscan viewing
         console.log("this is the address of my ERC80Z contract", address(tokenTCH));
-        
+
         vm.stopBroadcast();
     }
 }
